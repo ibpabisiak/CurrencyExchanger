@@ -3,7 +3,7 @@ RESTful Web Service written in Java/SpringBoot for currency exchange
 
 ## Requirements
 - Java 13
-- Gradle 6.3 or later
+- Gradle 6.3
 ## Run
 - Go to the root directory and pass `gradle build`
 - Use following command to run service `java -jar ./build/libs/CurrencyExchange-0.0.1-SNAPSHOT.jar
@@ -11,7 +11,7 @@ RESTful Web Service written in Java/SpringBoot for currency exchange
 
 ## Endpoints
 - SWAGGER `/swagger/`
-- POST `/api/exchangerates`
+- POST `/api/exchange`
 
 ## License
 MIT

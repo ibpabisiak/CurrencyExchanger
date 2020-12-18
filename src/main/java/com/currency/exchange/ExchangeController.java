@@ -14,7 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/exchangerates")
+@RequestMapping("/api/exchange")
 @Slf4j
 @Tag(name = "Currency Converter Controller")
 public class ExchangeController {
