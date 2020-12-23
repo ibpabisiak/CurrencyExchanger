@@ -22,9 +22,7 @@ public class ExchangeController {
     private final ExchangeService exchangeService;
 
     @PostMapping
-    public ResponseEntity<ExchangeResponse> convert(@Valid @RequestBody ExchangeDto exchangeDto, WebRequest request) {
+    public ResponseEntity<ExchangeResponse> exchange(@Valid @RequestBody ExchangeDto exchangeDto, WebRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(exchangeService.exchange(exchangeDto, request));
     }
-
-
 }

@@ -10,8 +10,7 @@ public class CurrencyExchangeApplication {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(CurrencyExchangeApplication.class, args);
-        ExchangeRateService exchangeRateService = applicationContext.getBean(ExchangeRateService.class);
-        exchangeRateService.updateCurrencyExchangeRate();
+        applicationContext.getBean(ExchangeRateService.class).updateCurrencyExchangeRate();
     }
 
 }
