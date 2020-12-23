@@ -8,5 +8,5 @@ public interface ExchangeRateService {
 
     BigDecimal getRateByCurrencyCode(String currencyCode);
 
-    String getBaseCurrency();
+    boolean isBaseCurrency(String currencyCode);
 }

@@ -7,6 +7,7 @@ import com.currency.exchange.rate.ExchangeRateService;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,25 +22,25 @@ import org.springframework.web.client.RestTemplate;
 public class NbpExchangeService implements ExchangeRateService {
 
     private final static String BASE_CURRENCY = "pln";
-    private final Map<String, BigDecimal> rates = new HashMap<>();
-    private final RestTemplate restTemplate = new RestTemplate();
+    private Map<String, BigDecimal> rates = new HashMap<>();
+    private RestTemplate restTemplate = new RestTemplate();
     private Instant lastUpdate;
 
     @Override
     public BigDecimal getRateByCurrencyCode(String currencyCode) {
-        if (getBaseCurrency().equals(currencyCode)) {
+        if (BASE_CURRENCY.equals(currencyCode)) {
             return new BigDecimal("0");
-        } else if (!rates.containsKey(currencyCode)) {
+        } else if (!getUnmodifiableRates().containsKey(currencyCode)) {
             throw new InvalidCurrencyCodeException(
                 ExchangeExceptionMessage.INVALID_CURRENCY_CODE.formatWithParameter(currencyCode));
         }
 
-        return rates.get(currencyCode);
+        return getUnmodifiableRates().get(currencyCode);
     }
 
     @Override
-    public String getBaseCurrency() {
-        return BASE_CURRENCY;
+    public boolean isBaseCurrency(String currencyCode) {
+        return currencyCode.toLowerCase().equals(BASE_CURRENCY);
     }
 
     @Override
@@ -87,5 +88,9 @@ public class NbpExchangeService implements ExchangeRateService {
             throw new NbpConnectionException(
                 ExchangeExceptionMessage.NBP_CONNECTION_ERROR.formatWithParameter(NbpEndpointBuilder.nbpUrl()));
         }
+    }
+
+    private Map<String, BigDecimal> getUnmodifiableRates() {
+        return Collections.unmodifiableMap(rates);
     }
 }

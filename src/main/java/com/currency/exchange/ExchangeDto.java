@@ -15,7 +15,7 @@ public class ExchangeDto {
     private BigDecimal amount;
 
     @NotNull
-    private String baseCurrencyCode;
+    private String sourceCurrencyCode;
 
     @NotNull
     private String targetCurrencyCode;
