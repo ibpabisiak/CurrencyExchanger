@@ -8,9 +8,10 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 public class NbpExchangeService implements ExchangeRateService {
 
     private final static String BASE_CURRENCY = "pln";
-    private Map<String, BigDecimal> rates = new HashMap<>();
+    private ConcurrentMap<String, BigDecimal> rates = new ConcurrentHashMap<>();
     private RestTemplate restTemplate = new RestTemplate();
     private Instant lastUpdate;
 
