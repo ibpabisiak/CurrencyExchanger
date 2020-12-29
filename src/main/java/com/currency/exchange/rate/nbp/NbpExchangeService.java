@@ -7,8 +7,6 @@ import com.currency.exchange.rate.ExchangeRateService;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -31,12 +29,12 @@ public class NbpExchangeService implements ExchangeRateService {
     public BigDecimal getRateByCurrencyCode(String currencyCode) {
         if (BASE_CURRENCY.equals(currencyCode)) {
             return new BigDecimal("0");
-        } else if (!getUnmodifiableRates().containsKey(currencyCode)) {
+        } else if (!rates.containsKey(currencyCode)) {
             throw new InvalidCurrencyCodeException(
                 ExchangeExceptionMessage.INVALID_CURRENCY_CODE.formatWithParameter(currencyCode));
         }
 
-        return getUnmodifiableRates().get(currencyCode);
+        return rates.get(currencyCode);
     }
 
     @Override
@@ -89,9 +87,5 @@ public class NbpExchangeService implements ExchangeRateService {
             throw new NbpConnectionException(
                 ExchangeExceptionMessage.NBP_CONNECTION_ERROR.formatWithParameter(NbpEndpointBuilder.nbpUrl()));
         }
-    }
-
-    private Map<String, BigDecimal> getUnmodifiableRates() {
-        return Collections.unmodifiableMap(rates);
     }
 }
